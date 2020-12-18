@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/exportarts/bullmq-utils/compare/v0.1.5...v0.1.6) (2020-12-18)
+
+
+### Bug Fixes
+
+* **build:** add module "commonjs" setting ([6e3540d](https://github.com/exportarts/bullmq-utils/commit/6e3540db6aed2b455b1b1c25ba661ab507a5817e))
+
 ### [0.1.5](https://github.com/exportarts/bullmq-utils/compare/v0.1.4...v0.1.5) (2020-12-18)
 
 
