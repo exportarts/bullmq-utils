@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/exportarts/bullmq-utils/compare/v0.1.2...v0.1.3) (2020-12-18)
+
+
+### Features
+
+* add TaskProcessorLogger ([342aa82](https://github.com/exportarts/bullmq-utils/commit/342aa822c08cd478ed921847428d4aaebe27ba04))
+
 ### [0.1.2](https://github.com/exportarts/bullmq-utils/compare/v0.1.1...v0.1.2) (2020-12-18)
 
 
