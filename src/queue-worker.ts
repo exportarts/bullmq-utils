@@ -11,7 +11,6 @@ export abstract class QueueWorker<QueueName extends string> {
     constructor(
         queueName: QueueName,
         processor: Processor,
-        _logger: Logger,
         workerOptions?: WorkerOptions,
     ) {
         if (!workerOptions?.concurrency || workerOptions?.concurrency === 1) {
