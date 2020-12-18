@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/exportarts/bullmq-utils/compare/v0.1.3...v0.1.4) (2020-12-18)
+
+
+### Bug Fixes
+
+* **queue-worker:** remove unused constructor arg ([c08a585](https://github.com/exportarts/bullmq-utils/commit/c08a5851093d3f7a0ffa92d96aa62249a17af01e))
+
 ### [0.1.3](https://github.com/exportarts/bullmq-utils/compare/v0.1.2...v0.1.3) (2020-12-18)
 
 
