@@ -1,6 +1,7 @@
 # bullmq-utils
 
-![npm](https://img.shields.io/npm/v/bullmq-utils)
+[![npm](https://img.shields.io/npm/v/bullmq-utils)](https://npmjs.com/bullmq-utils)
+[![Build Status](https://travis-ci.com/exportarts/bullmq-utils.svg?branch=master)](https://travis-ci.com/exportarts/bullmq-utils)
 
 Utility classes and functions for [bullmq](https://github.com/taskforcesh/bullmq).
 
