@@ -6,6 +6,7 @@
         "outDir": "dist",
         "experimentalDecorators": true,
         "target": "es2017",
+        "module": "CommonJS",
         "moduleResolution": "node",
         "declaration": true
     }
