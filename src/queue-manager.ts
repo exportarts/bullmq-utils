@@ -3,7 +3,7 @@ import 'reflect-metadata';
 
 import { Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { JobsOptions, Queue, QueueOptions, QueueScheduler, QueueSchedulerOptions } from 'bullmq';
+import { Job, JobsOptions, Queue, QueueOptions, QueueScheduler, QueueSchedulerOptions } from 'bullmq';
 import cronstrue from 'cronstrue';
 import { Duration, DurationObject } from 'luxon';
 import { queueBaseOptions } from './queue-options';
@@ -43,7 +43,7 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
         this.createRepeatableJobs(scheduleCronJobs);
     }
 
-    async add(name: TaskNameEnum, data?: any, options?: JobsOptions) {
+    async add<T = any, R = any>(name: TaskNameEnum, data?: any, options?: JobsOptions): Promise<Job<T, R>> {
         return this.queue.add(name, data, options);
     }
 
