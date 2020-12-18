@@ -6,6 +6,7 @@
         "outDir": "dist",
         "experimentalDecorators": true,
         "target": "es2017",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "declaration": true
     }
 }
