@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/exportarts/bullmq-utils/compare/v0.1.4...v0.1.5) (2020-12-18)
+
+
+### Bug Fixes
+
+* **queue-manager:** add explicit return type ([a327ed7](https://github.com/exportarts/bullmq-utils/commit/a327ed72472bf9b9e0f41678c22cadec0c555b9a))
+
 ### [0.1.4](https://github.com/exportarts/bullmq-utils/compare/v0.1.3...v0.1.4) (2020-12-18)
 
 
