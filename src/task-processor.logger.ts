@@ -15,8 +15,15 @@ export class TaskProcessorLogger {
         return Date.now();
     }
 
-    end(job: Job, start: number, message?: string) {
-        this.logger.log(`${this.prefix(job)} ${job.name} ended. Took ${this.msToTime(Date.now() - start)}.${message ? ' ' + message : ''}`);
+    end(job: Job, start?: number, message?: string) {
+        let msg = `${this.prefix(job)} ${job.name} ended.`;
+        if (start) {
+            msg += ` Took ${this.msToTime(Date.now() - start)}.`;
+        }
+        if (message) {
+            msg += ` ${message}`;
+        }
+        this.logger.log(msg);
     }
 
     error(job: Job, message: string, trace?: string) {
