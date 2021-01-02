@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/exportarts/bullmq-utils/compare/v0.1.6...v0.1.7) (2021-01-02)
+
+
+### Features
+
+* **queue-options:** add validation ([1d01a87](https://github.com/exportarts/bullmq-utils/commit/1d01a87f1d71628a7c9b859b11142652c64bdf01))
+* **task-processor-logger:** allow end() without start time ([379096f](https://github.com/exportarts/bullmq-utils/commit/379096f12320e7b340633f58f0878b50c4059aa6))
+
 ### [0.1.6](https://github.com/exportarts/bullmq-utils/compare/v0.1.5...v0.1.6) (2020-12-18)
 
 
