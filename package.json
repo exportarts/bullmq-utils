@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/exportarts/bullmq-utils#readme",
   "devDependencies": {
-    "@nestjs/common": "7.6.3",
+    "@nestjs/common": "7.6.5",
     "@nestjs/schedule": "0.4.1",
     "@types/jest": "26.0.19",
     "@types/luxon": "1.25.0",
