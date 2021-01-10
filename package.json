@@ -2,9 +2,11 @@
   "name": "bullmq-utils",
   "version": "0.2.0",
   "description": "Utility classes and functions for bullmq",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "tsc",
+    "postbuild": "cp README.md CHANGELOG.md package.json package-lock.json dist",
     "prepublishOnly": "npm run build && npm run test",
     "release": "standard-version",
     "test": "jest"

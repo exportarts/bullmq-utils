@@ -5,13 +5,12 @@
 
 Utility classes and functions for [bullmq](https://github.com/taskforcesh/bullmq).
 
-## Semantic Versioning & Releases
+## Contributing
 
-Make sure you follow the commit message guidelines from
+Contributions via issues or Pull Requests are welcome!
+
+When making commits, please follow the commit message guidelines from
 [conventionalcommits.org](https://www.conventionalcommits.org).
+This makes it easy to auto-generate a changelog.
 
-### Publishing new releases
-
-`npm run release --dry-run` to check if it would do what you intended.
-
-Then, `npm run release` and follow the instructions.
+Have a look at previous commits in this repo for examples.
