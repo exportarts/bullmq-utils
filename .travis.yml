@@ -4,7 +4,7 @@ node_js:
   - "14"
 script:
   - npm run build
-  - npm run test
+  - npm run test -- --coverage
   - sonar-scanner
 addons:
   sonarcloud:
