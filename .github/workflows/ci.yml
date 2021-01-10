@@ -25,6 +25,7 @@ jobs:
     - run: npm run build
     - run: npm test -- --coverage
     - name: SonarCloud Scan
+      if: startsWith(matrix.node-version, '15')
       uses: sonarsource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
