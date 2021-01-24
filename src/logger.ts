@@ -1,7 +1,9 @@
 export interface Logger {
     log(message: string): void;
     warn(message: string): void;
-    error(message: string): void;
+    error(message: string, trace?: string): void;
+    verbose(message: string): void;
+    debug(message: string): void;
 }
 
 export class DefaultLogger implements Logger {
@@ -18,8 +20,16 @@ export class DefaultLogger implements Logger {
         console.warn(`[${this.context}] ${message}`);
     }
 
-    error(message: string) {
-        console.error(`[${this.context}] ${message}`);
+    error(message: string, trace?: string) {
+        console.error(`[${this.context}] ${message}`, trace);
+    }
+
+    verbose(message: string) {
+        console.info(`[${this.context}] ${message}`);
+    }
+
+    debug(message: string) {
+        console.debug(`[${this.context}] ${message}`);
     }
 
 }

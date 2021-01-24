@@ -33,9 +33,7 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
         queueOptions?: QueueOptions,
         schedulerOptions?: QueueSchedulerOptions
     ) {
-        if (!logger) {
-            this.logger = new DefaultLogger(this.constructor.name);
-        }
+        this.logger = logger || new DefaultLogger(this.constructor.name);
         this.queue = new Queue(queueName, {
             ...queueBaseOptions(),
             ...queueOptions

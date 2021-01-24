@@ -1,13 +1,16 @@
-import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
+import { DefaultLogger, Logger } from './logger';
 
 export class TaskProcessorLogger {
 
     private readonly logger: Logger;
     private readonly prefix = (job: Job) => `[${job.id}]`;
 
-    constructor(name: string) {
-        this.logger = new Logger(name);
+    constructor(
+        name: string,
+        logger?: Logger
+    ) {
+        this.logger = logger || new DefaultLogger(name);
     }
 
     start(job: Job, message?: string): number {

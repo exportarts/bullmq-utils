@@ -14,9 +14,7 @@ export abstract class QueueWorker<QueueName extends string> {
         logger?: Logger,
         workerOptions?: WorkerOptions,
     ) {
-        if (!logger) {
-            this.logger = new DefaultLogger(this.constructor.name);
-        }
+        this.logger = logger || new DefaultLogger(this.constructor.name);
         if (!workerOptions?.concurrency || workerOptions?.concurrency === 1) {
             this.logger.warn(`Setting the concurrency to a low number can cause dead-lock situations!`);
         }
