@@ -1,11 +1,11 @@
 // must come first
 import 'reflect-metadata';
 
-import { Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Job, JobsOptions, Queue, QueueOptions, QueueScheduler, QueueSchedulerOptions } from 'bullmq';
 import cronstrue from 'cronstrue';
 import { Duration, DurationObject } from 'luxon';
+import { DefaultLogger, Logger } from './logger';
 import { queueBaseOptions } from './queue-options';
 
 interface QueueManagerCronOptions {
@@ -15,7 +15,7 @@ interface QueueManagerCronOptions {
 
 export abstract class QueueManager<QueueName extends string, TaskNameEnum extends string> {
 
-    private readonly logger = new Logger(this.constructor.name);
+    private readonly logger: Logger;
 
     readonly queue: Queue;
     /**
@@ -28,10 +28,14 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
 
     constructor(
         queueName: QueueName,
+        logger?: Logger,
         scheduleCronJobs?: Partial<Record<TaskNameEnum, QueueManagerCronOptions>>,
         queueOptions?: QueueOptions,
         schedulerOptions?: QueueSchedulerOptions
     ) {
+        if (!logger) {
+            this.logger = new DefaultLogger(this.constructor.name);
+        }
         this.queue = new Queue(queueName, {
             ...queueBaseOptions(),
             ...queueOptions
@@ -63,10 +67,10 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
         const jobsToDelete = jobs.filter(job => (Date.now() - job.finishedOn) > threshold);
         
         if (jobsToDelete.length > 0) {
-            this.logger.verbose(`${jobsToDelete.length}/${jobs.length} in status "${status}" will be deleted.`);
+            this.logger.log(`${jobsToDelete.length}/${jobs.length} in status "${status}" will be deleted.`);
             await this.queue.clean(threshold, limit, status);
         } else {
-            this.logger.verbose(`No jobs to delete in status "${status}".`);
+            this.logger.log(`No jobs to delete in status "${status}".`);
         }
     }
 
@@ -78,7 +82,7 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
                     cron
                 }
             });
-            this.logger.verbose(`Cron-Job ${jobName} has been scheduled with pattern ${cron} (${this.printCronPattern(cron)}).`);
+            this.logger.log(`Cron-Job ${jobName} has been scheduled with pattern ${cron} (${this.printCronPattern(cron)}).`);
         }
     }
 

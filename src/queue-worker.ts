@@ -1,18 +1,22 @@
-import { Logger } from '@nestjs/common';
 import { Job, Processor, Worker, WorkerOptions } from 'bullmq';
+import { DefaultLogger, Logger } from './logger';
 import { queueBaseOptions } from './queue-options';
 
 export abstract class QueueWorker<QueueName extends string> {
 
-    protected readonly logger = new Logger(this.constructor.name);
+    protected readonly logger: Logger
 
     private readonly worker: Worker;
 
     constructor(
         queueName: QueueName,
         processor: Processor,
+        logger?: Logger,
         workerOptions?: WorkerOptions,
     ) {
+        if (!logger) {
+            this.logger = new DefaultLogger(this.constructor.name);
+        }
         if (!workerOptions?.concurrency || workerOptions?.concurrency === 1) {
             this.logger.warn(`Setting the concurrency to a low number can cause dead-lock situations!`);
         }
