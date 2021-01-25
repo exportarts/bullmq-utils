@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/exportarts/bullmq-utils/compare/v1.0.0...v1.0.1) (2021-01-25)
+
+
+### Bug Fixes
+
+* **cleanup:** handle queue names that include the job name delimiter ([dde7350](https://github.com/exportarts/bullmq-utils/commit/dde7350b1a531aad589d4f0934c1410b12a7d51c))
+* **cleanup:** handle queue names that include the job name delimiter ([80474c8](https://github.com/exportarts/bullmq-utils/commit/80474c84429a31521b4c737526b06554d42e4bd7))
+* **manager:** correctly schedule repeatable jobs ([eb31b0c](https://github.com/exportarts/bullmq-utils/commit/eb31b0c3535b95e8a5a551740383ce3b468ff4a9))
+
 ## [1.0.0](https://github.com/exportarts/bullmq-utils/compare/v0.2.0...v1.0.0) (2021-01-25)
 
 
