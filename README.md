@@ -7,6 +7,16 @@
 
 Utility classes and functions for [bullmq](https://github.com/taskforcesh/bullmq).
 
+## Demo
+
+[![asciicast](https://asciinema.org/a/386978.svg)](https://asciinema.org/a/386978)
+
+You can run a demo before integrating this into you application by running `npm run demo`.
+This will start a local redis instance with `docker-compose` and start a sample script
+with a single [`QueueManager`](./src/queue-manager.ts) and [`QueueWorker`](./src/queue-worker.ts).
+
+You can open [http://localhost:7000](http://localhost:7000) to view the tasks inside redis.
+
 ## Contributing
 
 Contributions via issues or Pull Requests are welcome!

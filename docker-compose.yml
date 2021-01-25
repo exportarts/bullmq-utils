@@ -1,0 +1,17 @@
+version: "3.3"
+services:
+  redis:
+    image: redis
+    hostname: redis
+    command: ["redis-server", "--requirepass", "redis"]
+    ports:
+      - 6999:6379
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=redis
+    ports:
+      - 7000:8081

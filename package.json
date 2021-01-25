@@ -9,7 +9,9 @@
     "postbuild": "cp README.md CHANGELOG.md package.json package-lock.json dist",
     "prepublishOnly": "npm run build && npm run test",
     "release": "standard-version",
-    "test": "jest"
+    "test": "jest",
+    "demo": "docker-compose -p bullmq-utils up -d && ts-node demo/index.ts",
+    "demo:stop": "docker-compose -p bullmq-utils down -v"
   },
   "repository": {
     "type": "git",
@@ -32,6 +34,7 @@
     "jest": "26.6.3",
     "standard-version": "9.1.0",
     "ts-jest": "26.4.4",
+    "ts-node": "9.1.1",
     "typescript": "4.1.3"
   },
   "peerDependencies": {
