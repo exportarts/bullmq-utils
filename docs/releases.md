@@ -7,4 +7,4 @@
 3. `npm run release` (first try it with `-- --dry-run`)
 4. `git push --follow-tags origin master`
 5. `npm run build` to release the new version
-6. `cd dist && npm publish`
+6. `cd dist && npm publish --ignore-scripts`
