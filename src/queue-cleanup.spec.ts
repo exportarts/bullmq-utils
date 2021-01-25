@@ -34,6 +34,13 @@ describe('QueueCleanUp', () => {
             expect(getJobStatus(failed as Job)).toEqual('failed');
             expect(getJobStatus(nonCleanupJob as Job)).toBeUndefined();
         });
+        it('should accept queue names that have the internal delimiter in it', () => {
+            const queue = {
+                name: 'test_queue'
+            };
+            const job = { name: queueCleanUpJobName(queue.name, 'completed') };
+            expect(getJobStatus(job as Job)).toEqual('completed');
+        });
     });
 
     describe(isCleanUpJob.name, () => {

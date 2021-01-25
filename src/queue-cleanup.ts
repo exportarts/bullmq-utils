@@ -13,7 +13,9 @@ const nameSuffix = 'cleanup';
 export const queueCleanUpJobName = (queueName: string, status: JobStatus) => `${queueName}${nameDelimiter}${status}${nameDelimiter}${nameSuffix}`;
 
 export function getJobStatus(job: Job): JobStatus | undefined {
-    return job.name.split(nameDelimiter)[1] as JobStatus;
+    const parts = job.name.split(nameDelimiter);
+    const status = parts[parts.length - 2];
+    return status as JobStatus;
 }
 
 export function isCleanUpJob(job: Job, queueName: string) {
