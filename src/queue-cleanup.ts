@@ -18,11 +18,12 @@ export function getJobStatus(job: Job): JobStatus | undefined {
 
 export function isCleanUpJob(job: Job, queueName: string) {
     const parts = job.name.split(nameDelimiter);
-    if (parts.length != 3) {
+    if (parts.length < 3) {
         return false;
     }
-    const [queue, status, suffix] = parts;
-    return queue === queueName &&
+    const suffix = parts[parts.length - 1];
+    const status = parts[parts.length - 2];
+    return job.name.startsWith(queueName) &&
         isJobStatus(status) &&
         suffix === nameSuffix;
 }
