@@ -1,11 +1,7 @@
-// must come first
-import 'reflect-metadata';
-
-import { Cron, CronExpression } from '@nestjs/schedule';
-import { Job, JobsOptions, Queue, QueueOptions, QueueScheduler, QueueSchedulerOptions } from 'bullmq';
+import { Job, JobsOptions, Queue, QueueOptions, QueueScheduler, QueueSchedulerOptions, RepeatOptions } from 'bullmq';
 import cronstrue from 'cronstrue';
-import { Duration, DurationObject } from 'luxon';
 import { DefaultLogger, Logger } from './logger';
+import { defaultQueueCleanUpOptions, isJobStatus, queueCleanUpJobName, QueueCleanUpOptions } from './queue-cleanup';
 import { queueBaseOptions } from './queue-options';
 
 interface QueueManagerCronOptions {
@@ -31,7 +27,8 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
         logger?: Logger,
         scheduleCronJobs?: Partial<Record<TaskNameEnum, QueueManagerCronOptions>>,
         queueOptions?: QueueOptions,
-        schedulerOptions?: QueueSchedulerOptions
+        schedulerOptions?: QueueSchedulerOptions,
+        cleanUpOptions = defaultQueueCleanUpOptions
     ) {
         this.logger = logger || new DefaultLogger(this.constructor.name);
         this.queue = new Queue(queueName, {
@@ -43,45 +40,32 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
             ...schedulerOptions
         });
         this.createRepeatableJobs(scheduleCronJobs);
+        this.createCleanUpJobs(queueName, cleanUpOptions);
     }
 
     async add<T = any, R = any>(name: TaskNameEnum, data?: any, options?: JobsOptions): Promise<Job<T, R>> {
         return this.queue.add(name, data, options);
     }
 
-    @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
-    private async deleteOldJobsCron() {
-        await this.deleteOldJobs('completed', { weeks: 1 });
-        await this.deleteOldJobs('failed', { weeks: 4 });
-    }
-
-    private async deleteOldJobs(
-        status: 'completed' | 'wait' | 'active' | 'paused' | 'delayed' | 'failed',
-        duration: DurationObject,
-        limit = 1000
-    ) {
-        const threshold = Duration.fromObject(duration).as('milliseconds');
-        const jobs = await this.queue.getJobs(status);
-        const jobsToDelete = jobs.filter(job => (Date.now() - job.finishedOn) > threshold);
-        
-        if (jobsToDelete.length > 0) {
-            this.logger.log(`${jobsToDelete.length}/${jobs.length} in status "${status}" will be deleted.`);
-            await this.queue.clean(threshold, limit, status);
-        } else {
-            this.logger.log(`No jobs to delete in status "${status}".`);
+    private async createCleanUpJobs(queueName: string, options: QueueCleanUpOptions) {
+        for (const key in options) {
+            if (isJobStatus(key)) {
+                const name = queueCleanUpJobName(queueName, key);
+                await this.scheduleCronJob(name, { cron: options.cronSchedule }, options[key]);
+            }
         }
     }
 
     private async createRepeatableJobs(jobs: Partial<Record<TaskNameEnum, QueueManagerCronOptions>>) {
         for (const jobName in jobs) {
             const cron = jobs[jobName].pattern;
-            await this.add(jobName, jobs[jobName].payload, {
-                repeat: {
-                    cron
-                }
-            });
-            this.logger.log(`Cron-Job ${jobName} has been scheduled with pattern ${cron} (${this.printCronPattern(cron)}).`);
+            await this.scheduleCronJob(jobName, { cron }, jobs[jobName].payload);
         }
+    }
+
+    private async scheduleCronJob(name: string, options: RepeatOptions, payload?: any) {
+        await this.add(name as TaskNameEnum, payload, options);
+        this.logger.log(`Cron-Job ${name} has been scheduled with pattern ${options.cron} (${this.printCronPattern(options.cron)}).`);
     }
 
     private printCronPattern(pattern: string): string {

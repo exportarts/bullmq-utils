@@ -1,9 +1,10 @@
 import { Job } from 'bullmq';
-import { Logger } from './logger';
+import { DefaultLogger, Logger } from './logger';
 import { TaskProcessorLogger } from './task-processor.logger';
 
 describe(TaskProcessorLogger.name, () => {
     const tpl = new TaskProcessorLogger('Test');
+    const tplWithLogger = new TaskProcessorLogger(new DefaultLogger('logger'));
     let logMethodSpy: jest.SpyInstance;
     let job: Job;
     let jobWithAttempts: Job;
@@ -19,6 +20,19 @@ describe(TaskProcessorLogger.name, () => {
             name: 'test',
             attemptsMade: 1
         } as Job;
+    });
+
+    describe('Constructor', () => {
+        it('should accept a name', () => {
+            const logger = (tpl as any).logger;
+            expect(logger).toBeInstanceOf(DefaultLogger);
+            expect(logger.context).toEqual('Test');
+        });
+        it('should accept a logger', () => {
+            const logger = (tplWithLogger as any).logger;
+            expect(logger).toBeInstanceOf(DefaultLogger);
+            expect(logger.context).toEqual('logger');
+        });
     });
 
     describe('start()', () => {

@@ -7,10 +7,13 @@ export class TaskProcessorLogger {
     private readonly prefix = (job: Job) => `[${job.id}]`;
 
     constructor(
-        name: string,
-        logger?: Logger
+        nameOrLogger: string | Logger
     ) {
-        this.logger = logger || new DefaultLogger(name);
+        if (typeof nameOrLogger === 'string') {
+            this.logger = new DefaultLogger(nameOrLogger);
+        } else {
+            this.logger = nameOrLogger;
+        }
     }
 
     start(job: Job, message?: string): number {
