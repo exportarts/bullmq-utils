@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/exportarts/bullmq-utils/compare/v0.2.0...v1.0.0) (2021-01-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* The QueueManager and QueueWorker classes now accept their optional arguments in a single options object.
+
+* move constructor args to options object ([f1c994f](https://github.com/exportarts/bullmq-utils/commit/f1c994f8387a59225e54684332bf36785e19171c))
+
 ## [0.2.0](https://github.com/exportarts/bullmq-utils/compare/v0.1.9...v0.2.0) (2021-01-02)
 
 ### [0.1.9](https://github.com/exportarts/bullmq-utils/compare/v0.1.8...v0.1.9) (2021-01-02)

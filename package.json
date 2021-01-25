@@ -1,6 +1,6 @@
 {
   "name": "bullmq-utils",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Utility classes and functions for bullmq",
   "main": "index.js",
   "scripts": {
