@@ -1,8 +1,9 @@
 # bullmq-utils
 
 [![npm](https://img.shields.io/npm/v/bullmq-utils)](https://npmjs.com/bullmq-utils)
-[![Build Status](https://github.com/exportarts/bullmq-utils/workflows/ci/badge.svg
-)](https://github.com/exportarts/bullmq-utils/actions)
+[![Build Status](https://github.com/exportarts/bullmq-utils/workflows/ci/badge.svg)](https://github.com/exportarts/bullmq-utils/actions)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=exportarts_bullmq-utils&metric=alert_status)](https://sonarcloud.io/dashboard?id=exportarts_bullmq-utils)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=exportarts_bullmq-utils&metric=coverage)](https://sonarcloud.io/dashboard?id=exportarts_bullmq-utils)
 
 Utility classes and functions for [bullmq](https://github.com/taskforcesh/bullmq).
 
