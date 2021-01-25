@@ -5,6 +5,11 @@ import { getJobStatus, isCleanUpJob, JobStatus, JobStatusCleanUpOptions } from '
 import { queueBaseOptions } from './queue-options';
 import { TaskProcessorLogger } from './task-processor.logger';
 
+interface QueueWorkerOptions {
+    logger?: Logger;
+    workerOptions?: WorkerOptions;
+}
+
 export abstract class QueueWorker<QueueName extends string> {
 
     protected readonly logger: Logger;
@@ -16,19 +21,18 @@ export abstract class QueueWorker<QueueName extends string> {
     constructor(
         queueName: QueueName,
         processor: Processor,
-        logger?: Logger,
-        workerOptions?: WorkerOptions,
+        options?: QueueWorkerOptions
     ) {
-        this.logger = logger || new DefaultLogger(this.constructor.name);
+        this.logger = options?.logger || new DefaultLogger(this.constructor.name);
         this.taskProcessorLogger = new TaskProcessorLogger(this.logger);
-        if (!workerOptions?.concurrency || workerOptions?.concurrency === 1) {
+        if (!options?.workerOptions?.concurrency || options?.workerOptions?.concurrency === 1) {
             this.logger.warn(`Setting the concurrency to a low number can cause dead-lock situations!`);
         }
 
         const wrappedProcessor = this.makeWrappedProcessor(processor, queueName);
         this.worker = new Worker(queueName, wrappedProcessor, {
             ...queueBaseOptions(),
-            ...workerOptions
+            ...options?.workerOptions || {}
         });
         this.queue = new Queue(queueName, queueBaseOptions());
     }

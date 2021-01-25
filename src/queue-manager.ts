@@ -9,6 +9,14 @@ interface QueueManagerCronOptions {
     payload?: any;
 }
 
+interface QueueManagerOptions<TaskNameEnum extends string> {
+    logger?: Logger;
+    scheduleCronJobs?: Partial<Record<TaskNameEnum, QueueManagerCronOptions>>;
+    queueOptions?: QueueOptions;
+    schedulerOptions?: QueueSchedulerOptions;
+    cleanUpOptions?: QueueCleanUpOptions;
+}
+
 export abstract class QueueManager<QueueName extends string, TaskNameEnum extends string> {
 
     private readonly logger: Logger;
@@ -24,23 +32,19 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
 
     constructor(
         queueName: QueueName,
-        logger?: Logger,
-        scheduleCronJobs?: Partial<Record<TaskNameEnum, QueueManagerCronOptions>>,
-        queueOptions?: QueueOptions,
-        schedulerOptions?: QueueSchedulerOptions,
-        cleanUpOptions = defaultQueueCleanUpOptions
+        options?: QueueManagerOptions<TaskNameEnum>
     ) {
-        this.logger = logger || new DefaultLogger(this.constructor.name);
+        this.logger = options?.logger || new DefaultLogger(this.constructor.name);
         this.queue = new Queue(queueName, {
             ...queueBaseOptions(),
-            ...queueOptions
+            ...options?.queueOptions || {}
         });
         this.scheduler = new QueueScheduler(queueName, {
             ...queueBaseOptions(),
-            ...schedulerOptions
+            ...options?.schedulerOptions || {}
         });
-        this.createRepeatableJobs(scheduleCronJobs);
-        this.createCleanUpJobs(queueName, cleanUpOptions);
+        this.createRepeatableJobs(options?.scheduleCronJobs);
+        this.createCleanUpJobs(queueName, options?.cleanUpOptions || defaultQueueCleanUpOptions);
     }
 
     async add<T = any, R = any>(name: TaskNameEnum, data?: any, options?: JobsOptions): Promise<Job<T, R>> {
