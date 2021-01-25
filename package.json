@@ -38,7 +38,7 @@
     "bullmq": "^1.12.0"
   },
   "dependencies": {
-    "cronstrue": "1.106.0",
+    "cronstrue": "1.108.0",
     "luxon": "1.25.0"
   }
 }
