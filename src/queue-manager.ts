@@ -55,7 +55,15 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
         for (const key in options) {
             if (isJobStatus(key)) {
                 const name = queueCleanUpJobName(queueName, key);
-                await this.scheduleRepeatableJob(name, { cron: options.cronSchedule }, options[key]);
+                await this.scheduleRepeatableJob(
+                    name,
+                    { cron: options.cronSchedule },
+                    options[key],
+                    {
+                        removeOnComplete: true,
+                        removeOnFail: true
+                    }
+                );
             }
         }
     }
@@ -67,9 +75,10 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
         }
     }
 
-    private async scheduleRepeatableJob(name: string, repeat: RepeatOptions, payload?: any) {
+    private async scheduleRepeatableJob(name: string, repeat: RepeatOptions, payload?: any, jobOptions?: Omit<JobsOptions, 'repeat'>) {
         await this.add(name as TaskNameEnum, payload, {
-            repeat
+            repeat,
+            ...(jobOptions || {})
         });
         this.logger.log(`Cron-Job ${name} has been scheduled with pattern ${repeat.cron} (${this.printCronPattern(repeat.cron)}).`);
     }
