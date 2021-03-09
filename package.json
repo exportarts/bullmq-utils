@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/jest": "26.0.20",
     "@types/luxon": "1.26.1",
-    "bullmq": "1.14.7",
+    "bullmq": "1.14.8",
     "jest": "26.6.3",
     "standard-version": "9.1.1",
     "ts-jest": "26.4.4",
