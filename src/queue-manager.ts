@@ -19,7 +19,7 @@ interface QueueManagerOptions<TaskNameEnum extends string> {
 
 export abstract class QueueManager<QueueName extends string, TaskNameEnum extends string> {
 
-    private readonly logger: Logger;
+    protected readonly logger: Logger;
 
     readonly queue: Queue;
     /**
@@ -28,7 +28,7 @@ export abstract class QueueManager<QueueName extends string, TaskNameEnum extend
      * 
      * @see https://docs.bullmq.io/guide/queuescheduler
      */
-    private readonly scheduler: QueueScheduler;
+    protected readonly scheduler: QueueScheduler;
 
     constructor(
         queueName: QueueName,
