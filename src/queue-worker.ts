@@ -15,7 +15,7 @@ export abstract class QueueWorker<QueueName extends string> {
     protected readonly logger: Logger;
     private readonly taskProcessorLogger: TaskProcessorLogger;
 
-    private readonly worker: Worker;
+    protected readonly worker: Worker;
     private readonly queue: Queue;
 
     constructor(
