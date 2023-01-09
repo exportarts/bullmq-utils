@@ -42,6 +42,6 @@
   },
   "dependencies": {
     "cronstrue": "1.113.0",
-    "luxon": "1.26.0"
+    "luxon": "2.5.2"
   }
 }
